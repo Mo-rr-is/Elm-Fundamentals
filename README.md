@@ -67,3 +67,65 @@ We can also generate a JavaScript code and save it in .js file.
 ```elm
     elm make Main.elm --output output.js
 ```
+
+## Tutorial 3 - How model, view and update works
+Lets explain the following code line by line.
+```elm
+module Main exposing (..)                   -- Line 1
+
+import Browser                              -- Line 2
+import Html exposing (text, div)            -- Line 3
+
+-- Function to add two numbers
+add a b =                                   -- Line 4
+    a + b                                   -- Line 5
+
+init =                                      -- Line 6
+    {value = 0}                             -- Line 7
+
+view model =                                -- Line 8
+    div [] [text "How Elm Works"]           -- Line 9
+
+update model =                              -- Line 10
+    model                                   -- Line 11
+
+main =                                      -- Line 12
+    Browser.sandbox                         -- Line 13
+        {                                   -- Line 14
+            init = init,                    -- Line 15
+            view = view,                    -- Line 16
+            update = update                 -- Line 17
+        }                                   -- Line 18
+```
+1. **Line 1**
+    - This is a module declaration containing the name of the module and exposing indicates that all the functions in this module can be used by other modules.
+2. **Line 2** and **3**
+    - Imports modules which contains UI components (Browser and Html). They are necessary for rendering some content on a webpage.
+3. **Line 4** and **5**
+    - Comments in an elm begins with --.
+    - Specify function add and specify two parameters a and b.
+    - It adds the parameters and returns the sum.
+4. **Line 6** and **7**
+    - Sets initial value of the model.
+5. **Line 8** and **9**
+    - Takes the model as its first parameter. It returns a div tag which takes two parameters. The first is the list of attributes while the second is list of contents that go inside the div.
+6. **Line 10** and **11**
+    - The update function also takes the model as its first parameter. It should return the updated value of the model.
+7. **Line 12 to 18**
+    - This is the main method. It calls the Browser.sandbox() which takes a record having three properties:\
+*init* - the initial model.\
+*view* - function that renders the model on the screen.\
+*update* - function that update the model when something changes.
+### Rendering the Model
+In the above example, the text that displays on the screen is a hardcoded text passed in to the view.\
+But since the view takes the model as a parameter hence we would like to display the model rather than a hardcoded value.\
+To achieve that we would need to replace the text with a ```model.value```.\
+And since ```model.value``` is a number whereas text attribute of the dic tag expects a string, we would use **fromInt()** function.
+```elm
+    view model = 
+        div [] [text (fromInt model.value)]
+```
+We would therefore need to import the fromInt() function from String module.
+```elm
+    import String exposing (fromInt)
+```
