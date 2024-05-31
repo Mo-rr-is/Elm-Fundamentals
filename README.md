@@ -19,8 +19,8 @@ This is a repo to learn the fundamentals of Elm Programming Language.
   - If you navigate to the .elm files, it will compile them for you.
 
 You can also navigate to the src folder and run the command *elm make Main.elm*. After that you can run the *elm reactor* command.
-```
-    > elm make Main.elm
+```elm
+    elm make Main.elm
 ```
 So the first program is Hello World! To create this program simply navigate to the src folder and create a new file named **Main.elm**. Inside the Main.elm file, copy the follwing code.
 ```elm
@@ -158,4 +158,43 @@ main =
             view = view,
             update = update
         }
+```
+## Tutorial 5 - Working with Button and TextBoxes
+In this case you have to import the necessary functions from Html module. These functions include button and input functions.\
+You can also add add a **ClickHandler** to the button by importing onClick() function from Html.Events and then add the onClick parameter to the button function. This is as shown below.\
+**Step 1** - Import onClick() from Html.Events
+```elm
+    import Html.Events exposing (onClick)
+```
+**Step 2** - Add onClick as first parameter to the button.
+```elm
+    button [onClick Add] [text "Add"]
+```
+**Step 3** - Create a message. This is anything that can be done and affects the model.
+```elm
+    type Messages = 
+        Add
+```
+**Step 4** - Update the model using the update function.
+```elm
+    update msg model = 
+        case msg of
+            Add ->
+                model
+```
+**Step 5** - Logging messages
+- Import Debug
+```elm
+    import Debug exposing (log)
+```
+- In the update function, write a code to log some messages enclosed in a ```let... in``` block.
+```elm
+    update msg model = 
+        let
+            logmessage = log "here" "Button Clicked"
+            logmessage2 = log "model" model
+        in
+        case msg of
+            Add ->
+                model
 ```
