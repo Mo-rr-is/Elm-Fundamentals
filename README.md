@@ -129,3 +129,33 @@ We would therefore need to import the fromInt() function from String module.
 ```elm
     import String exposing (fromInt)
 ```
+## Tutorial 4 - Rendering the model from view
+The next step is to apply what we have discussed in the Rendering a model section above.
+```elm
+module Main exposing (main)
+
+import Browser
+import Html exposing (text, div)
+import String exposing (fromInt)
+
+add a b = 
+    a + b
+
+init =
+    {value = 99,
+    name = "Morris"}
+
+view model =
+    div [] [text (fromInt model.value)]
+
+update model =
+    model
+
+main =
+    Browser.sandbox
+        {
+            init = init,
+            view = view,
+            update = update
+        }
+```
